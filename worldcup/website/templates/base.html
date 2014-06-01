@@ -1,0 +1,33 @@
+<html>
+    <head>
+        {% block styles %}
+        {% endblock %}
+    </head>
+    <body>
+        <h1>Maybe Logo here</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="{% url 'teams' %}">Teams</a></li>
+                <li><a href="{% url 'matches' %}">Matches</a></li>
+                <li><a href="{% url 'players' %}">Players</a></li>
+             {% if user.is_authenticated %}
+             <li><a href="{% url 'logout' %}">Logout</a></li>
+             {% else %}
+                 <li><a href="{% url 'login' %}">Login</a></li>
+             {% endif %}
+            </ul>
+        </nav>
+        <hr>
+{% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
+{% else %}
+    <p>Welcome, Annonymous. Please log in.</p>
+{% endif %}
+<hr>
+        {% block content %}
+
+        {% endblock %}
+
+    </body>
+</html>

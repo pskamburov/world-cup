@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+All-matches:
+    <hr>
+    {% for match in matches %}
+    <article>
+        <h3><a href="{% url 'show-match' match.id %}">{{ match }}</a></h3>
+{# <h3>{{ player.team }}</h3> #}
+        <hr>
+    </article>
+    {% endfor %}
+{% endblock %}

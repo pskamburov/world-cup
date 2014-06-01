@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+All-teams:
+    <hr>
+    {% for team in teams %}
+    <article>
+        <h3><a href="{% url 'show-team' team.id %}">{{ team.name }}</a></h3>
+    <h3>{{ team.group }}</h3>
+    <p>{{ team.info }}</p>
+        <hr>
+    </article>
+    {% endfor %}
+{% endblock %}

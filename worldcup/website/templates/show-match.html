@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="alert-message"> </div>
+<br>
+
+
+host Team:
+<h3>{{ match.host.name }}</h3>
+away Team:
+<h3>{{ match.away.name }}</h3>
+
+ {{ match.score_host }} : {{ match.score_away }}
+<br>
+<b>{{ match.host.name }}</b> players:
+{% for player, vote in votes_players_host.items %}
+        <br>
+<span id="{{ player.id }}">{{ player.name }}, vote: {{ vote|floatformat }}</span>
+ <div class="rating" id="{{player.id}}">
+     {% for x in MAX_VOTE %}
+         {% if vote|floatformat:0 >= x %}
+            <div class="star on rating"></div>
+         {% else %}
+            <div class="star"></div>
+         {% endif %}
+    {% endfor %}
+<div class="userrating" id="{{player.id}}"></div>
+</div><br>
+{% endfor %}
+        <br>
+<b>{{ match.away.name }}</b> players:
+{% for player, vote in votes_players_away.items %}
+        <br>
+<span id="{{ player.id }}">{{ player.name }}, vote: {{ vote|floatformat }}</span>
+<div class="rating" id="{{player.id}}">
+     {% for x in MAX_VOTE %}
+         {% if vote|floatformat:0 >= x %}
+            <div class="star on rating"></div>
+         {% else %}
+            <div class="star"></div>
+         {% endif %}
+    {% endfor %}
+<div class="userrating" id="{{player.id}}"></div>
+</div><br>
+{% endfor %}
+        <br>
+
+ <style type="text/css">
+.star {
+     width:29px;
+     height: 29px;
+     background-image:url({{ STATIC_URL }}star_blank.png);
+     float:left;
+}
+
+.on {
+     background-image:url({{ STATIC_URL }}star_overs.png);
+}
+
+.rated > .rating {
+     background-image:url({{ STATIC_URL }}star_voted.png);
+}
+            </style>
+    <script type="text/javascript" src="{{ STATIC_URL }}jquery-1.4.js"></script>
+    <script type="text/javascript">
+      $(function() {
+        $('.star').click(function(){
+          $(this).addClass('on rating');
+          $(this).prevAll().addClass('on rating');
+          $(this).nextAll().removeClass('on rating');
+          //    How to select the parent div of 'this'?
+          $(this).parent().addClass('rated');
+          var player_id = $(this).parent().attr('id');
+          var rating = $(this).siblings().add(this).filter('.rating').length;
+
+          $.post("/rate/", {user: "{{ user.username }}", rating: rating, player_id: player_id, match_id:"{{match.id}}"},
+            function(data) {
+                $('#alert-message')[0].innerHTML = '<span>'+data+'</span>';
+                setTimeout(function() {
+                    window.location.reload(true);
+                }, 1500);
+//                $('#alert-message').append('<span>'+data+'</span>');
+//              alert(data);
+            }
+         );
+        });
+      });
+
+      $(function() {
+        $('.star').hover(
+          function(){
+            $(this).addClass('on');
+            $(this).prevAll().addClass('on');
+            $(this).nextAll().removeClass('on');
+          },
+          function(){
+            $(this).siblings().add(this).removeClass('on');
+            $(this).siblings().add(this).filter('.rating').addClass('on');
+          }
+        );
+      });
+    </script>
+
+
+
+         {{ message }}
+{% endblock %}

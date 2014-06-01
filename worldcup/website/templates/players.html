@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+All-players:
+    <hr>
+    {% for player in players %}
+    <article>
+        <h3><a href="{% url 'show-player' player.id %}">{{ player.name }}</a></h3>
+        <hr>
+    </article>
+    {% endfor %}
