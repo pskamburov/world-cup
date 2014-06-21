@@ -2,16 +2,43 @@
 
 {% block content %}
 <div id="alert-message"> </div>
+
+ {% if allowed %}
+    Moderator
+
+ {% else %}
+    Normal User
+ {% endif %}
+<br>
+BETS:
 <br>
 
+        <br>
+{% for bet,points in bets.items %}
+    <b>{{ bet.0 }}</b>
+    <b>{{ bet.0.id }}</b>
+     result: {{ bet.1 }}: {{ bet.2 }}
+     goalscorer: {{ bet.3.name }}
+     points: {{ points }}
+        <br>
+{% endfor %}
+<br>
+<br>
+Is Over: {{ is_over }}
+<br>
 
-host Team:
-<h3>{{ match.host.name }}</h3>
-away Team:
-<h3>{{ match.away.name }}</h3>
+<b>{{ match.host }}</b>
+vs
+<b>{{ match.away }}</b>
 
  {{ match.score_host }} : {{ match.score_away }}
 <br>
+goalscorers:
+<br>
+{% for goalscorer in goalscorers %}
+{{ goalscorer }}
+    <br>
+{% endfor %}
 <b>{{ match.host.name }}</b> players:
 {% for player, vote in votes_players_host.items %}
         <br>
