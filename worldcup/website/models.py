@@ -20,7 +20,8 @@ class Player(models.Model):
     position = models.CharField(max_length=3)
 
     def __str__(self):
-        return self.name
+        representation = "{}. {}".format(self.number, self.name)
+        return representation
 
 
 class Match(models.Model):

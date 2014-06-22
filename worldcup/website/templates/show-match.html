@@ -1,78 +1,51 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div id="alert-message"> </div>
+<style type="text/css">
+input[type=radio] {
+    display:none;
+}
 
- {% if allowed %}
-    Moderator
+input[type=radio] + label {
+    display:inline-block;
+    margin:-2px;
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    color: #333;
+    text-align: center;
+    text-shadow: 0 1px 1px rgba(255,255,255,0.75);
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: #f5f5f5;
+    background-image: -moz-linear-gradient(top,#fff,#e6e6e6);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#fff),to(#e6e6e6));
+    background-image: -webkit-linear-gradient(top,#fff,#e6e6e6);
+    background-image: -o-linear-gradient(top,#fff,#e6e6e6);
+    background-image: linear-gradient(to bottom,#fff,#e6e6e6);
+    background-repeat: repeat-x;
+    border: 1px solid #ccc;
+    border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+    border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
+    border-bottom-color: #b3b3b3;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff',endColorstr='#ffe6e6e6',GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+    -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+}
 
- {% else %}
-    Normal User
- {% endif %}
-<br>
-BETS:
-<br>
-
-        <br>
-{% for bet,points in bets.items %}
-    <b>{{ bet.0 }}</b>
-    <b>{{ bet.0.id }}</b>
-     result: {{ bet.1 }}: {{ bet.2 }}
-     goalscorer: {{ bet.3.name }}
-     points: {{ points }}
-        <br>
-{% endfor %}
-<br>
-<br>
-Is Over: {{ is_over }}
-<br>
-
-<b>{{ match.host }}</b>
-vs
-<b>{{ match.away }}</b>
-
- {{ match.score_host }} : {{ match.score_away }}
-<br>
-goalscorers:
-<br>
-{% for goalscorer in goalscorers %}
-{{ goalscorer }}
-    <br>
-{% endfor %}
-<b>{{ match.host.name }}</b> players:
-{% for player, vote in votes_players_host.items %}
-        <br>
-<span id="{{ player.id }}">{{ player.name }}, vote: {{ vote|floatformat }}</span>
- <div class="rating" id="{{player.id}}">
-     {% for x in MAX_VOTE %}
-         {% if vote|floatformat:0 >= x %}
-            <div class="star on rating"></div>
-         {% else %}
-            <div class="star"></div>
-         {% endif %}
-    {% endfor %}
-<div class="userrating" id="{{player.id}}"></div>
-</div><br>
-{% endfor %}
-        <br>
-<b>{{ match.away.name }}</b> players:
-{% for player, vote in votes_players_away.items %}
-        <br>
-<span id="{{ player.id }}">{{ player.name }}, vote: {{ vote|floatformat }}</span>
-<div class="rating" id="{{player.id}}">
-     {% for x in MAX_VOTE %}
-         {% if vote|floatformat:0 >= x %}
-            <div class="star on rating"></div>
-         {% else %}
-            <div class="star"></div>
-         {% endif %}
-    {% endfor %}
-<div class="userrating" id="{{player.id}}"></div>
-</div><br>
-{% endfor %}
-        <br>
-
- <style type="text/css">
+input[type=radio]:checked + label {
+       background-image: none;
+    outline: 0;
+    -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+    -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+        background-color:#e0e0e0;
+}
+        </style>
+<style type="text/css">
 .star {
      width:29px;
      height: 29px;
@@ -100,14 +73,12 @@ goalscorers:
           var player_id = $(this).parent().attr('id');
           var rating = $(this).siblings().add(this).filter('.rating').length;
 
-          $.post("/rate/", {user: "{{ user.username }}", rating: rating, player_id: player_id, match_id:"{{match.id}}"},
+          $.post("/rate/", {rating: rating, player_id: player_id, match_id:"{{match.id}}"},
             function(data) {
                 $('#alert-message')[0].innerHTML = '<span>'+data+'</span>';
                 setTimeout(function() {
                     window.location.reload(true);
                 }, 1500);
-//                $('#alert-message').append('<span>'+data+'</span>');
-//              alert(data);
             }
          );
         });
@@ -127,8 +98,140 @@ goalscorers:
         );
       });
     </script>
+<script type="text/javascript">
+   function sendBet(){
+       if ($('[name="radios"]:checked').length != 0) {
+           var player_id = $('[name="radios"]:checked').val();
+           var home_score = $('#home_score').val();
+           var away_score = $('#away_score').val();
+           $.post("/betting/", {home_score: home_score,away_score: away_score, goalscorer: player_id, match_id:"{{match.id}}"},
+                function(data) {
+                    $('#alert-message')[0].innerHTML = '<span>'+data+'</span>';
+                    setTimeout(function() {
+                        window.location.reload(true);
+                    }, 1500);
+                });
+       } else {
+           $('#alert-message')[0].innerHTML = '<span>Please pick a goalscorer!</span>';
+       }
+
+   }
+
+   function sendResult(){
+           var home_score = $('#home_result').val();
+           var away_score = $('#away_result').val();
+           $.post("/addresult/", {home_score: home_score,away_score: away_score, match_id:"{{match.id}}"},
+                function(data) {
+                    $('#alert-message')[0].innerHTML = '<span>'+data+'</span>';
+                    setTimeout(function() {
+                        window.location.reload(true);
+                    }, 1500);
+                });
+   }
+   function sendGoals(){
+       var goalscorer = $('#home_result').val();
+       $.post("/addgoal/", {goalscorer:goalscorer, match_id:"{{match.id}}"},
+            function(data) {
+                $('#alert-message')[0].innerHTML = '<span>'+data+'</span>';
+                setTimeout(function() {
+                    window.location.reload(true);
+                }, 1500);
+            });
+   }
+</script>
 
 
+<div id="alert-message"> </div>
 
-         {{ message }}
+{% if allowed %}
+    Moderator
+<input type="number" id="home_result" value="" min="0" max="20"> :
+<input type="number" id="away_result" value="" min="0" max="20">
+        <input type="submit" onclick="sendResult()">
+        <br>
+<select>
+{% for player, vote in votes_players_host.items %}
+  <option value="{{ player.id }}">{{ player }}</option>
+{% endfor %}
+{% for player, vote in votes_players_away.items %}
+  <option value="{{ player.id }}">{{ player }}</option>
+{% endfor %}
+</select>
+     <input type="submit" onclick="sendGoals()" value="Add goalscorers">
+
+ {% else %}
+    Normal User
+ {% endif %}
+<br>
+BETS:
+<br>
+
+        <br>
+{% for bet,points in bets.items %}
+    <b>{{ bet.0 }}</b>
+    <b>{{ bet.0.id }}</b>
+     result: {{ bet.1 }}: {{ bet.2 }}
+     goalscorer: {{ bet.3.name }}
+     points: {{ points }}
+        <br>
+{% endfor %}
+<br>
+<br>
+Is Over: {{ is_over }}
+
+        <br>
+
+<b>{{ match.host }}</b>
+vs
+<b>{{ match.away }}</b>
+
+ {{ match.score_host }} : {{ match.score_away }}
+<br>
+goalscorers:
+<br>
+{% for goalscorer in goalscorers %}
+{{ goalscorer }}
+    <br>
+{% endfor %}
+
+<input type="number" id="home_score" value="" min="0" max="20"> :
+<input type="number" id="away_score" value="" min="0" max="20">
+        <input type="submit" onclick="sendBet()">
+        <br>
+<b>{{ match.host.name }}</b> players:
+{% for player, vote in votes_players_host.items %}
+        <br>
+<input type="radio" id="radio{{player.id}}" name="radios" value="{{ player.id }}" >
+<label for="radio{{player.id}}">{{ player.number }}. {{ player.name }}, vote: {{ vote|floatformat }}</label>
+
+ <div class="rating" id="{{player.id}}">
+     {% for x in MAX_VOTE %}
+         {% if vote|floatformat:0 >= x %}
+            <div class="star on rating"></div>
+         {% else %}
+            <div class="star"></div>
+         {% endif %}
+     {% endfor %}
+<div class="userrating" id="{{player.id}}"></div>
+</div><br>
+{% endfor %}
+        <br>
+<b>{{ match.away.name }}</b> players:
+{% for player, vote in votes_players_away.items %}
+        <br>
+<input type="radio" id="radio{{player.id}}" name="radios" value="{{ player.id }}">
+   <label for="radio{{player.id}}">{{ player.number }}. {{ player.name }}, vote: {{ vote|floatformat }}</label>
+<div class="rating" id="{{player.id}}">
+     {% for x in MAX_VOTE %}
+         {% if vote|floatformat:0 >= x %}
+            <div class="star on rating"></div>
+         {% else %}
+            <div class="star"></div>
+         {% endif %}
+    {% endfor %}
+<div class="userrating" id="{{player.id}}"></div>
+</div><br>
+{% endfor %}
+        <br>
+
 {% endblock %}
