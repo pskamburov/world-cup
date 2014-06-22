@@ -129,8 +129,18 @@ input[type=radio]:checked + label {
                 });
    }
    function sendGoals(){
-       var goalscorer = $('#home_result').val();
+       var goalscorer = $('#goalscorer').val();
        $.post("/addgoal/", {goalscorer:goalscorer, match_id:"{{match.id}}"},
+            function(data) {
+                $('#alert-message')[0].innerHTML = '<span>'+data+'</span>';
+                setTimeout(function() {
+                    window.location.reload(true);
+                }, 1500);
+            });
+   }
+
+   function addPoints(){
+       $.post("/addpoints/", {match_id:"{{match.id}}"},
             function(data) {
                 $('#alert-message')[0].innerHTML = '<span>'+data+'</span>';
                 setTimeout(function() {
@@ -147,9 +157,9 @@ input[type=radio]:checked + label {
     Moderator
 <input type="number" id="home_result" value="" min="0" max="20"> :
 <input type="number" id="away_result" value="" min="0" max="20">
-        <input type="submit" onclick="sendResult()">
+<input type="submit" onclick="sendResult()" value="Add result">
         <br>
-<select>
+<select id="goalscorer">
 {% for player, vote in votes_players_host.items %}
   <option value="{{ player.id }}">{{ player }}</option>
 {% endfor %}
@@ -157,7 +167,9 @@ input[type=radio]:checked + label {
   <option value="{{ player.id }}">{{ player }}</option>
 {% endfor %}
 </select>
-     <input type="submit" onclick="sendGoals()" value="Add goalscorers">
+ <input type="submit" onclick="sendGoals()" value="Add goalscorers">
+ make sure you typed the score and goalscorers!!
+ <input type="submit" onclick="addPoints()" value="Give Points!!!">
 
  {% else %}
     Normal User

@@ -58,11 +58,14 @@ def show_match(request, match_id):
     else:
         allowed = False
     all_bets = PredictMatch.objects.filter(predict_match__id=match_id)
-    bets = {(bet.user, bet.score_host, bet.score_away, bet.goalscorer): 0 for bet in all_bets}
+    bets = {(bet.user, bet.score_host, bet.score_away, bet.goalscorer): 0
+            for bet in all_bets}
     goals = Goal.objects.filter(match__id=match_id)
     goalscorers = [goal.goalscorer for goal in goals]
     for bet, points in bets.items():
-        bets[bet] = calculate_points((bet[1], bet[2]), (match.score_host, match.score_away), bet[3], goalscorers)
+        bets[bet] = calculate_points((bet[1], bet[2]),
+                                     (match.score_host, match.score_away),
+                                     bet[3], goalscorers)
     is_over = match.is_over
     if is_over:
         pass
@@ -88,7 +91,8 @@ def calculate_points(bet_result, result, bet_goalscorer, goalscorers):
             points = 5
         elif bet_difference == difference:
             points = 3
-        elif (bet_difference > 0 and difference > 0) or (bet_difference < 0 and difference < 0):
+        elif (bet_difference > 0 and difference > 0) or\
+                (bet_difference < 0 and difference < 0):
             points = 1
         for goalscorer in goalscorers:
             if goalscorer == bet_goalscorer:
@@ -134,7 +138,9 @@ def register(request):
             password = form.cleaned_data['password']
             repeat_password = form.cleaned_data['repeat_password']
             if password == repeat_password:
-                user = User.objects.create_user(username, email, password, first_name=first_name, last_name=last_name)
+                user = User.objects.create_user(username, email, password,
+                                                first_name=first_name,
+                                                last_name=last_name)
                 user = authenticate(username=username, password=password)
                 if user is not None:
                     if user.is_active:
@@ -166,7 +172,8 @@ def betting(request):
                                          score_host=home_score,
                                          score_away=away_score,
                                          user=user)
-                bet_exists = PredictMatch.objects.filter(predict_match=match, user=user)
+                bet_exists = PredictMatch.objects.filter(predict_match=match,
+                                                         user=user)
                 if bet_exists:
                     bet_exists.delete()
                 bet_query.save()
@@ -196,7 +203,71 @@ def addresult(request):
                 match.score_host = home_score
                 match.score_away = away_score
                 match.save()
-                message = "Result was updated successfully!{}".format(match)
+                message = "Result was updated successfully!{}"
+        else:
+            message = "No XHR"
+        return HttpResponse(message)
+    else:
+        return HttpResponse("No permission!")
+
+
+@csrf_exempt
+def addgoal(request):
+    if request.user.is_authenticated() and\
+            (is_allowed(request.user.username) or request.user.is_superuser):
+        if request.is_ajax() and request.method == 'POST':
+            goalscorer_id = request.POST.get('goalscorer')
+            match_id = request.POST.get('match_id')
+            if not(match_id.isdigit() or goalscorer_id.isdigit()):
+                message = "Incorrect data!"
+            else:
+                match = get_object_or_404(Match, id=match_id)
+                player = get_object_or_404(Player, id=goalscorer_id)
+                if match.is_over:
+                    message = "Match is over! Points have been given!"
+                    return HttpResponse(message)
+                goal_query = Goal(match=match, goalscorer=player)
+                goal_query.save()
+                message = "Goalscorer was added successfully!{}"
+        else:
+            message = "No XHR"
+        return HttpResponse(message)
+    else:
+        return HttpResponse("No permission!")
+
+
+@csrf_exempt
+def addpoints(request):
+    if request.user.is_authenticated() and\
+            (is_allowed(request.user.username) or request.user.is_superuser):
+        if request.is_ajax() and request.method == 'POST':
+            match_id = request.POST.get('match_id')
+            if not match_id.isdigit():
+                message = "Incorrect data!"
+            else:
+                match = get_object_or_404(Match, id=match_id)
+                all_bets = PredictMatch.objects.filter(predict_match=match)
+                goals = Goal.objects.filter(match=match)
+                goalscorers = [goal.goalscorer for goal in goals]
+                all_points = {}
+                for bet in all_bets:
+                    all_points[bet.user] = \
+                        calculate_points((bet.score_host,
+                                          bet.score_away),
+                                         (match.score_host, match.score_away),
+                                         bet.goalscorer, goalscorers)
+                for user, points in all_points.items():
+                    user_exists = Point.objects.filter(user=user)
+                    if user_exists:
+                        user_points = get_object_or_404(Point, user=user)
+                        user_points.points += points
+                    else:
+                        user_points = Point(user=user, points=points)
+                    user_points.save()
+                message = "Success {} ".format(user_points)
+                if match.is_over:
+                    message = "Match is over! Points have been given!"
+                    return HttpResponse(message)
         else:
             message = "No XHR"
         return HttpResponse(message)
@@ -217,10 +288,13 @@ def rate(request):
                 match_id = request.POST.get('match_id')
                 match = get_object_or_404(Match, id=match_id)
                 player = get_object_or_404(Player, id=player_id)
-                if not Voting.objects.filter(match=match, player=player, user=user):
-                    vote_query = Voting(match=match, player=player, vote=rating, user=user)
+                if not Voting.objects.filter(match=match,
+                                             player=player, user=user):
+                    vote_query = Voting(match=match, player=player,
+                                        vote=rating, user=user)
                     vote_query.save()
-                    message = "You voted {} for {}. Thank you!".format(rating, player)
+                    message = "You voted {} for {}. " \
+                              "Thank you!".format(rating, player)
                 else:
                     message = "You already voted for this player!"
         else:

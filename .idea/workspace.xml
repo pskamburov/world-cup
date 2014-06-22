@@ -3,11 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="347a5da4-8ac3-448d-9760-10a4f9ab07f1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/worldcup/db.sqlite3" afterPath="$PROJECT_DIR$/worldcup/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/worldcup/website/models.py" afterPath="$PROJECT_DIR$/worldcup/website/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/worldcup/website/templates/show-match.html" afterPath="$PROJECT_DIR$/worldcup/website/templates/show-match.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/worldcup/website/urls.py" afterPath="$PROJECT_DIR$/worldcup/website/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/worldcup/website/views.py" afterPath="$PROJECT_DIR$/worldcup/website/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="world-cup.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,10 +28,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="show-match.html" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="show-match.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/worldcup/website/templates/show-match.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="160" column="0" selection-start="5753" selection-end="5753" vertical-scroll-proportion="-22.346153" vertical-offset="2139" max-vertical-offset="4114">
+            <state line="142" column="30" selection-start="5202" selection-end="5202" vertical-scroll-proportion="0.23392858" vertical-offset="2283" max-vertical-offset="4318">
               <folding />
             </state>
           </provider>
@@ -42,16 +40,16 @@
       <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/worldcup/website/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="29" selection-start="680" selection-end="680" vertical-scroll-proportion="0.0" vertical-offset="451" max-vertical-offset="1258">
+            <state line="23" column="29" selection-start="680" selection-end="680" vertical-scroll-proportion="0.0" vertical-offset="628" max-vertical-offset="1258">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/worldcup/website/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="0" selection-start="716" selection-end="716" vertical-scroll-proportion="0.30375427" vertical-offset="196" max-vertical-offset="3995">
+            <state line="251" column="31" selection-start="9485" selection-end="9485" vertical-scroll-proportion="0.0" vertical-offset="3987" max-vertical-offset="5253">
               <folding>
                 <element signature="e#0#64#0" expanded="true" />
               </folding>
@@ -91,7 +89,7 @@
       <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/worldcup/website/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="1" selection-start="916" selection-end="916" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
+            <state line="18" column="53" selection-start="967" selection-end="967" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="442">
               <folding />
             </state>
           </provider>
@@ -703,7 +701,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/worldcup/website/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="1" selection-start="916" selection-end="916" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
+        <state line="18" column="53" selection-start="967" selection-end="967" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="442">
           <folding />
         </state>
       </provider>
@@ -715,19 +713,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/worldcup/website/templates/show-match.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="160" column="0" selection-start="5753" selection-end="5753" vertical-scroll-proportion="-22.346153" vertical-offset="2139" max-vertical-offset="4114">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/worldcup/website/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="0" selection-start="716" selection-end="716" vertical-scroll-proportion="0.30375427" vertical-offset="196" max-vertical-offset="3995">
+        <state line="251" column="31" selection-start="9485" selection-end="9485" vertical-scroll-proportion="0.0" vertical-offset="3987" max-vertical-offset="5253">
           <folding>
             <element signature="e#0#64#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/worldcup/website/templates/show-match.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="142" column="30" selection-start="5202" selection-end="5202" vertical-scroll-proportion="0.23392858" vertical-offset="2283" max-vertical-offset="4318">
+          <folding />
         </state>
       </provider>
     </entry>
