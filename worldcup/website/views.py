@@ -11,15 +11,18 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import time
 from datetime import datetime
+import collections
 
 
 def home(request):
     teams = Team.objects.all()
     return render(request, "home.html", locals())
 
-
 def teams(request):
-    teams = Team.objects.all()
+    teams = Team.objects.order_by('group')
+    group_teams = collections.OrderedDict()
+    for team in teams:
+        group_teams.setdefault(team.group,[]).append(team)
     return render(request, "teams.html", locals())
 
 
@@ -207,7 +210,7 @@ def betting(request):
 @csrf_exempt
 def addresult(request):
     if request.user.is_authenticated() and\
-            (is_allowed(request.user.username) or request.user.is_superuser):
+            is_allowed(request.user):
         if request.is_ajax() and request.method == 'POST':
             home_score = request.POST.get('home_score')
             away_score = request.POST.get('away_score')
@@ -233,7 +236,7 @@ def addresult(request):
 @csrf_exempt
 def addgoal(request):
     if request.user.is_authenticated() and\
-            (is_allowed(request.user.username) or request.user.is_superuser):
+            is_allowed(request.user):
         if request.is_ajax() and request.method == 'POST':
             goalscorer_id = request.POST.get('goalscorer')
             match_id = request.POST.get('match_id')
@@ -258,7 +261,7 @@ def addgoal(request):
 @csrf_exempt
 def addpoints(request):
     if request.user.is_authenticated() and\
-            (is_allowed(request.user.username) or request.user.is_superuser):
+            is_allowed(request.user):
         if request.is_ajax() and request.method == 'POST':
             match_id = request.POST.get('match_id')
             if not match_id.isdigit():

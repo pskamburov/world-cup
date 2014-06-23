@@ -3,12 +3,12 @@
 {% block content %}
 All-teams:
     <hr>
-    {% for team in teams %}
-    <article>
-        <h3><a href="{% url 'show-team' team.id %}">{{ team.name }}</a></h3>
-    <h3>{{ team.group }}</h3>
-    <p>{{ team.info }}</p>
-        <hr>
-    </article>
+    {% for group, teams in group_teams.items %}
+        {{ group }}
+       {% for team in teams %}
+            <h3><a href="{% url 'show-team' team.id %}">{{ team }}</a></h3>
+       {% endfor %}
+        <br>
     {% endfor %}
+
 {% endblock %}
