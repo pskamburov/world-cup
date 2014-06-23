@@ -152,9 +152,13 @@ input[type=radio]:checked + label {
 
 
 <div id="alert-message"> </div>
-
+x: {{ datata }}<br>
+now {{ now }}<br>
+{{ is_started }}
+{{ user_bet.goalscorer }}
 {% if allowed %}
     Moderator
+    {% if not is_over %}
 <input type="number" id="home_result" value="" min="0" max="20"> :
 <input type="number" id="away_result" value="" min="0" max="20">
 <input type="submit" onclick="sendResult()" value="Add result">
@@ -170,7 +174,7 @@ input[type=radio]:checked + label {
  <input type="submit" onclick="sendGoals()" value="Add goalscorers">
  make sure you typed the score and goalscorers!!
  <input type="submit" onclick="addPoints()" value="Give Points!!!">
-
+    {% endif %}
  {% else %}
     Normal User
  {% endif %}
@@ -205,17 +209,26 @@ goalscorers:
 {{ goalscorer }}
     <br>
 {% endfor %}
+{% if is_started %}
+<input type="number" id="home_score" value="{{ user_bet.score_host }}" min="0" max="20" disabled> :
+<input type="number" id="away_score" value="{{ user_bet.score_away }}" min="0" max="20" disabled>
+{% else %}
+<input type="number" id="home_score" value="{{ user_bet.score_host }}" min="0" max="20" > :
+<input type="number" id="away_score" value="{{ user_bet.score_away }}" min="0" max="20" >
+<input type="submit" onclick="sendBet()">
+{% endif %}
 
-<input type="number" id="home_score" value="" min="0" max="20"> :
-<input type="number" id="away_score" value="" min="0" max="20">
-        <input type="submit" onclick="sendBet()">
         <br>
 <b>{{ match.host.name }}</b> players:
 {% for player, vote in votes_players_host.items %}
         <br>
+{% if player == user_bet.goalscorer %}
+<input type="radio" id="radio{{player.id}}" name="radios" value="{{ player.id }}" checked>
+<label for="radio{{player.id}}">{{ player }}, vote: {{ vote|floatformat }}</label>
+{% else %}
 <input type="radio" id="radio{{player.id}}" name="radios" value="{{ player.id }}" >
-<label for="radio{{player.id}}">{{ player.number }}. {{ player.name }}, vote: {{ vote|floatformat }}</label>
-
+<label for="radio{{player.id}}">{{ player }}, vote: {{ vote|floatformat }}</label>
+{% endif %}
  <div class="rating" id="{{player.id}}">
      {% for x in MAX_VOTE %}
          {% if vote|floatformat:0 >= x %}
@@ -231,8 +244,13 @@ goalscorers:
 <b>{{ match.away.name }}</b> players:
 {% for player, vote in votes_players_away.items %}
         <br>
-<input type="radio" id="radio{{player.id}}" name="radios" value="{{ player.id }}">
-   <label for="radio{{player.id}}">{{ player.number }}. {{ player.name }}, vote: {{ vote|floatformat }}</label>
+{% if player == user_bet.goalscorer %}
+<input type="radio" id="radio{{player.id}}" name="radios" value="{{ player.id }}" checked>
+<label for="radio{{player.id}}">{{ player }}, vote: {{ vote|floatformat }}</label>
+{% else %}
+<input type="radio" id="radio{{player.id}}" name="radios" value="{{ player.id }}" >
+<label for="radio{{player.id}}">{{ player }}, vote: {{ vote|floatformat }}</label>
+{% endif %}
 <div class="rating" id="{{player.id}}">
      {% for x in MAX_VOTE %}
          {% if vote|floatformat:0 >= x %}

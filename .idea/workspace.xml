@@ -3,9 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="347a5da4-8ac3-448d-9760-10a4f9ab07f1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/worldcup/db.sqlite3" afterPath="$PROJECT_DIR$/worldcup/db.sqlite3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/worldcup/website/models.py" afterPath="$PROJECT_DIR$/worldcup/website/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/worldcup/website/templates/show-match.html" afterPath="$PROJECT_DIR$/worldcup/website/templates/show-match.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/worldcup/website/urls.py" afterPath="$PROJECT_DIR$/worldcup/website/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/worldcup/website/views.py" afterPath="$PROJECT_DIR$/worldcup/website/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="world-cup.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,10 +29,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="show-match.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="show-match.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/worldcup/website/templates/show-match.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="142" column="30" selection-start="5202" selection-end="5202" vertical-scroll-proportion="0.23392858" vertical-offset="2283" max-vertical-offset="4318">
+            <state line="176" column="15" selection-start="6336" selection-end="6336" vertical-scroll-proportion="-16.961538" vertical-offset="2551" max-vertical-offset="4624">
               <folding />
             </state>
           </provider>
@@ -40,16 +41,16 @@
       <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/worldcup/website/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="29" selection-start="680" selection-end="680" vertical-scroll-proportion="0.0" vertical-offset="628" max-vertical-offset="1258">
+            <state line="35" column="26" selection-start="1183" selection-end="1183" vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="1360">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/worldcup/website/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="251" column="31" selection-start="9485" selection-end="9485" vertical-scroll-proportion="0.0" vertical-offset="3987" max-vertical-offset="5253">
+            <state line="21" column="30" selection-start="705" selection-end="705" vertical-scroll-proportion="0.30375427" vertical-offset="179" max-vertical-offset="5627">
               <folding>
                 <element signature="e#0#64#0" expanded="true" />
               </folding>
@@ -60,7 +61,7 @@
       <file leaf-file-name="forms.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/worldcup/website/forms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="0" selection-start="300" selection-end="300" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
+            <state line="13" column="0" selection-start="300" selection-end="300" vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="442">
               <folding />
             </state>
           </provider>
@@ -69,10 +70,8 @@
       <file leaf-file-name="admin.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/worldcup/website/admin.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="10" selection-start="546" selection-end="546" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
-              </folding>
+            <state line="18" column="10" selection-start="546" selection-end="546" vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="612">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -89,7 +88,7 @@
       <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/worldcup/website/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="53" selection-start="967" selection-end="967" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="442">
+            <state line="18" column="53" selection-start="967" selection-end="967" vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="442">
               <folding />
             </state>
           </provider>
@@ -98,7 +97,7 @@
       <file leaf-file-name="base.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/worldcup/website/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="42" selection-start="484" selection-end="484" vertical-scroll-proportion="-9.153846" vertical-offset="0" max-vertical-offset="646">
+            <state line="14" column="42" selection-start="484" selection-end="484" vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="646">
               <folding />
             </state>
           </provider>
@@ -107,7 +106,7 @@
       <file leaf-file-name="register.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/worldcup/website/templates/register.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="24" selection-start="591" selection-end="591" vertical-scroll-proportion="-12.423077" vertical-offset="0" max-vertical-offset="544">
+            <state line="19" column="24" selection-start="591" selection-end="591" vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="544">
               <folding />
             </state>
           </provider>
@@ -146,10 +145,10 @@
         <option value="$PROJECT_DIR$/worldcup/website/templates/players.html" />
         <option value="$PROJECT_DIR$/worldcup/website/admin.py" />
         <option value="$PROJECT_DIR$/worldcup/website/forms.py" />
-        <option value="$PROJECT_DIR$/worldcup/website/models.py" />
-        <option value="$PROJECT_DIR$/worldcup/website/templates/show-match.html" />
         <option value="$PROJECT_DIR$/worldcup/website/urls.py" />
         <option value="$PROJECT_DIR$/worldcup/website/views.py" />
+        <option value="$PROJECT_DIR$/worldcup/website/templates/show-match.html" />
+        <option value="$PROJECT_DIR$/worldcup/website/models.py" />
       </list>
     </option>
   </component>
@@ -403,6 +402,9 @@
       <option name="PARAMETERS" value="" />
       <method />
     </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
+      <method />
+    </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -424,9 +426,6 @@
       <option name="PUREUNITTEST" value="true" />
       <option name="PARAMS" value="" />
       <option name="USE_PARAM" value="false" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
@@ -481,7 +480,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -489,7 +488,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17975831" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18202417" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -497,11 +496,11 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -519,9 +518,9 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17975831" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -549,6 +548,71 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/worldcup/website/templates/show-match.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="155" column="13" selection-start="5547" selection-end="5547" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4335">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/worldcup/website/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="32" selection-start="399" selection-end="399" vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="1275">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/worldcup/website/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="20" selection-start="1396" selection-end="1396" vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="5355">
+          <folding>
+            <element signature="e#0#64#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/worldcup/website/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="0" selection-start="300" selection-end="300" vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="442">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/worldcup/website/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="10" selection-start="546" selection-end="546" vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="612">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/worldcup/website/templates/teams.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="14" selection-start="302" selection-end="302" vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="323">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/worldcup/website/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="53" selection-start="967" selection-end="967" vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="442">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/worldcup/website/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="42" selection-start="484" selection-end="484" vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="646">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/worldcup/website/templates/register.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="24" selection-start="591" selection-end="591" vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="544">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/worldcup/website/templates/show-match.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="22" column="9" selection-start="577" selection-end="577" vertical-scroll-proportion="0.0" vertical-offset="374" max-vertical-offset="1904">
@@ -657,28 +721,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/worldcup/website/templates/players.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="8" selection-start="68" selection-end="68" vertical-scroll-proportion="0.11663808" vertical-offset="0" max-vertical-offset="583">
-          <folding />
-        </state>
+        <state line="4" column="8" selection-start="68" selection-end="68" vertical-scroll-proportion="0.11663808" vertical-offset="0" max-vertical-offset="583" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/worldcup/website/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="42" selection-start="484" selection-end="484" vertical-scroll-proportion="-9.153846" vertical-offset="0" max-vertical-offset="646">
+        <state line="14" column="42" selection-start="484" selection-end="484" vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="646">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/worldcup/website/templates/register.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="24" selection-start="591" selection-end="591" vertical-scroll-proportion="-12.423077" vertical-offset="0" max-vertical-offset="544">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/worldcup/website/templates/teams.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="14" selection-start="302" selection-end="302" vertical-scroll-proportion="-8.5" vertical-offset="0" max-vertical-offset="323">
+        <state line="19" column="24" selection-start="591" selection-end="591" vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="544">
           <folding />
         </state>
       </provider>
@@ -686,9 +741,7 @@
     <entry file="file://$PROJECT_DIR$/worldcup/website/admin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="10" selection-start="546" selection-end="546" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -708,24 +761,31 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/worldcup/website/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="29" selection-start="680" selection-end="680" vertical-scroll-proportion="0.0" vertical-offset="451" max-vertical-offset="1258">
+        <state line="35" column="26" selection-start="1183" selection-end="1183" vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="1360">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/worldcup/website/templates/show-match.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="176" column="15" selection-start="6336" selection-end="6336" vertical-scroll-proportion="-16.961538" vertical-offset="2551" max-vertical-offset="4624">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/worldcup/website/templates/teams.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="14" selection-start="302" selection-end="302" vertical-scroll-proportion="-8.5" vertical-offset="0" max-vertical-offset="323">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/worldcup/website/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="251" column="31" selection-start="9485" selection-end="9485" vertical-scroll-proportion="0.0" vertical-offset="3987" max-vertical-offset="5253">
+        <state line="21" column="30" selection-start="705" selection-end="705" vertical-scroll-proportion="0.30375427" vertical-offset="179" max-vertical-offset="5627">
           <folding>
             <element signature="e#0#64#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/worldcup/website/templates/show-match.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="142" column="30" selection-start="5202" selection-end="5202" vertical-scroll-proportion="0.23392858" vertical-offset="2283" max-vertical-offset="4318">
-          <folding />
         </state>
       </provider>
     </entry>

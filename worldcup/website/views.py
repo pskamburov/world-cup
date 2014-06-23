@@ -9,6 +9,8 @@ from .forms import LoginForm, RegistrationForm
 from django.contrib.auth import logout
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+import time
+from datetime import datetime
 
 
 def home(request):
@@ -50,14 +52,20 @@ def show_match(request, match_id):
     votes_players_host = player_ratings(players_host, match_id)
     players_away = Player.objects.filter(team__name=match.away.name)
     votes_players_away = player_ratings(players_away, match_id)
-
     if request.user.is_authenticated():
-        username = request.user.username
-        is_super = request.user.is_superuser
-        allowed = is_allowed(username) or is_super
+        allowed = is_allowed(request.user)
+        user_bet_exists = PredictMatch.objects.filter(predict_match=match,
+                                               user=request.user)
+        if user_bet_exists:
+            user_bet = user_bet_exists[0]
+        else:
+            user_bet = None
     else:
         allowed = False
-    all_bets = PredictMatch.objects.filter(predict_match__id=match_id)
+        user_bet = None
+
+
+    all_bets = PredictMatch.objects.filter(predict_match=match)
     bets = {(bet.user, bet.score_host, bet.score_away, bet.goalscorer): 0
             for bet in all_bets}
     goals = Goal.objects.filter(match__id=match_id)
@@ -66,6 +74,7 @@ def show_match(request, match_id):
         bets[bet] = calculate_points((bet[1], bet[2]),
                                      (match.score_host, match.score_away),
                                      bet[3], goalscorers)
+    is_started = True if match_started(match) else False
     is_over = match.is_over
     if is_over:
         pass
@@ -101,13 +110,20 @@ def calculate_points(bet_result, result, bet_goalscorer, goalscorers):
 
 
 def is_allowed(user):
+    is_super = user.is_superuser
     allowed_group = set(['admin', 'moderator'])
-    usr = User.objects.get(username=user)
-    groups = [x.name for x in usr.groups.all()]
-    if allowed_group.intersection(set(groups)):
+    groups = [x.name for x in user.groups.all()]
+    if allowed_group.intersection(set(groups)) or is_super:
         return True
     return False
 
+
+def match_started(match):
+    match_start = match.schedule.replace(tzinfo=None)
+    now = datetime.now()
+    if now > match_start:
+        return True
+    return False
 
 def login(request):
     if request.user.is_authenticated():
@@ -166,6 +182,9 @@ def betting(request):
                 message = "Please pick a goalscorer!"
             else:
                 match = get_object_or_404(Match, id=match_id)
+                if match_started(match):
+                    message = "You can't bet. Match already started!"
+                    return HttpResponse(message)
                 player = get_object_or_404(Player, id=goalscorer_id)
                 bet_query = PredictMatch(predict_match=match,
                                          goalscorer=player,
@@ -177,7 +196,7 @@ def betting(request):
                 if bet_exists:
                     bet_exists.delete()
                 bet_query.save()
-                message = "Your bet was created successfully!"
+                message = "Your bet was created successfully!".format(match.schedule.date)
         else:
             message = "No XHR"
         return HttpResponse(message)
@@ -225,10 +244,10 @@ def addgoal(request):
                 player = get_object_or_404(Player, id=goalscorer_id)
                 if match.is_over:
                     message = "Match is over! Points have been given!"
-                    return HttpResponse(message)
-                goal_query = Goal(match=match, goalscorer=player)
-                goal_query.save()
-                message = "Goalscorer was added successfully!{}"
+                else:
+                    goal_query = Goal(match=match, goalscorer=player)
+                    goal_query.save()
+                    message = "Goalscorer was added successfully!{}"
         else:
             message = "No XHR"
         return HttpResponse(message)
@@ -246,6 +265,9 @@ def addpoints(request):
                 message = "Incorrect data!"
             else:
                 match = get_object_or_404(Match, id=match_id)
+                if match.is_over:
+                    message = "Match is over! Points have been given!"
+                    return HttpResponse(message)
                 all_bets = PredictMatch.objects.filter(predict_match=match)
                 goals = Goal.objects.filter(match=match)
                 goalscorers = [goal.goalscorer for goal in goals]
@@ -264,10 +286,10 @@ def addpoints(request):
                     else:
                         user_points = Point(user=user, points=points)
                     user_points.save()
+                match.is_over = True
+                match.save()
                 message = "Success {} ".format(user_points)
-                if match.is_over:
-                    message = "Match is over! Points have been given!"
-                    return HttpResponse(message)
+
         else:
             message = "No XHR"
         return HttpResponse(message)

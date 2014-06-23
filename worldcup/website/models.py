@@ -32,7 +32,13 @@ class Match(models.Model):
     schedule = models.DateTimeField()
     is_over = models.BooleanField(default=False)
     def __str__(self):
-        representation = "{} {} : {} {}".format(self.host.name, self.score_host, self.score_away, self.away.name)
+        if self.score_host is None or self.score_away is None:
+            score_host = ""
+            score_away = ""
+        else:
+            score_host = self.score_host
+            score_away = self.score_away
+        representation = "{} {} : {} {}".format(self.host.name, score_host, score_away, self.away.name)
         return representation
 
 
