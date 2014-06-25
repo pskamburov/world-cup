@@ -1,10 +1,53 @@
 {% extends 'base.html' %}
-
 {% block content %}
-Player:
-<h3>{{ player.name }}</h3>
-    <br>
-Team:
-<h3>{{ player.team }}</h3>
+            <nav>
+                <ul class="nav nav-pills">
+                    <li class="active"><a href="/">Home</a></li>
+                    <li><a href="{% url 'teams' %}">Teams</a></li>
+                    <li><a href="{% url 'matches' %}">Matches</a></li>
+                    <li><a href="{% url 'players' %}">Players</a></li>
+                    <li><a href="{% url 'ranking' %}">Rank list</a></li>
+                 {% if user.is_authenticated %}
+                 <li><a href="{% url 'logout' %}">Logout</a></li>
+                 <li><a href="{% url 'my-profile' %}">My profile</a></li>
+                 {% else %}
+                 <li><a href="{% url 'login' %}">Login</a></li>
+                 <li><a href="{% url 'register' %}">Register</a></li>
+                 {% endif %}
+                </ul>
+            </nav>
+            <hr>
+
+{% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
+{% else %}
+    <p>Welcome, Guest. Please log in.</p>
+{% endif %}
+<hr>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{ player.name }}</h3>
+  </div>
+  <div class="panel-body">
+   Team: {{ player.team }}<br>
+   Number: {{ player.number}} <br>
+   Age: {{ player.age }}<br>
+  Position:
+      {% if player.position == "GK" %}
+        Goalkeeper
+        {% elif player.position == "DF" %}
+        Defender
+        {% elif player.position == "MF" %}
+        Midfielder
+        {% elif player.position == "FW" %}
+        Forward
+      {% endif %}
+  </div>
+</div>
+
 
 {% endblock %}
+
+
+

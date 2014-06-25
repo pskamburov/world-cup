@@ -3,10 +3,10 @@
             <nav>
                 <ul class="nav nav-pills">
                     <li><a href="/">Home</a></li>
-                    <li class="active"><a href="{% url 'teams' %}">Teams</a></li>
+                    <li><a href="{% url 'teams' %}">Teams</a></li>
                     <li><a href="{% url 'matches' %}">Matches</a></li>
                     <li><a href="{% url 'players' %}">Players</a></li>
-                    <li><a href="{% url 'ranking' %}">Rank list</a></li>
+                    <li class="active"><a href="{% url 'ranking' %}">Rank list</a></li>
                  {% if user.is_authenticated %}
                  <li><a href="{% url 'logout' %}">Logout</a></li>
                  <li><a href="{% url 'my-profile' %}">My profile</a></li>
@@ -24,15 +24,26 @@
     <p>Welcome, Guest. Please log in.</p>
 {% endif %}
 <hr>
+<center>
+<table class="table table-striped table-hover " style="width:70%">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>User</th>
+      <th>Points</th>
+    </tr>
+  </thead>
+  <tbody>
 
-    {% for group, teams in group_teams.items %}
-        <div class="col-lg-3">
-        <div class="list-group">
-  <a href="#" class="list-group-item active">Group: {{ group }} </a>
-       {% for team in teams %}
-  <a href="team/{{ team.id }} " class="list-group-item">{{ team }}</a>
-
-       {% endfor %}
-</div></div>
-    {% endfor %}
+{% for points, user in user_points %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td><h4>{{ user }}</h4></td>
+      <td><h4>{{ points }}</h4></td>
+    </tr>
+{% endfor %}
+</tbody>
+    </table>
+</center>
 {% endblock %}
+

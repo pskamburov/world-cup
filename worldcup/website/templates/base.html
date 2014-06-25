@@ -1,33 +1,13 @@
 <html>
     <head>
-        {% block styles %}
-        {% endblock %}
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}bootstrap.css">
     </head>
     <body>
-        <h1>Maybe Logo here</h1>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="{% url 'teams' %}">Teams</a></li>
-                <li><a href="{% url 'matches' %}">Matches</a></li>
-                <li><a href="{% url 'players' %}">Players</a></li>
-             {% if user.is_authenticated %}
-             <li><a href="{% url 'logout' %}">Logout</a></li>
-             {% else %}
-                 <li><a href="{% url 'login' %}">Login</a></li>
-             {% endif %}
-            </ul>
-        </nav>
-        <hr>
-{% if user.is_authenticated %}
-    <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
-{% else %}
-    <p>Welcome, Annonymous. Please log in.</p>
-{% endif %}
-<hr>
+        <div class="container">
+            <h1>World Cup 2014 Brazil</h1>
         {% block content %}
 
         {% endblock %}
-
+        </div>
     </body>
 </html>

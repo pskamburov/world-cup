@@ -1,18 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<div class="hero-unit">
-    <h1>Register </h1>
-    <br />
-
+            <nav>
+                <ul class="nav nav-pills">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="{% url 'teams' %}">Teams</a></li>
+                    <li><a href="{% url 'matches' %}">Matches</a></li>
+                    <li><a href="{% url 'players' %}">Players</a></li>
+                    <li><a href="{% url 'ranking' %}">Rank list</a></li>
+                 {% if user.is_authenticated %}
+                 <li><a href="{% url 'logout' %}">Logout</a></li>
+                 <li><a href="{% url 'my-profile' %}">My profile</a></li>
+                 {% else %}
+                 <li class="active"><a href="{% url 'register' %}">Register</a></li>
+                 {% endif %}
+                </ul>
+            </nav>
+            <hr>
     <div class="container">
        {% if user.is_authenticated %}
-        <p>Thank you for registering.</p>
+        <div class="alert alert-dismissable alert-warning">
+        <p>You are already registered.</p>
+        </div>
         {% else %}
         <form class="form-sign" id="user_form" method="post"
               enctype="multipart/form-data">
             {% csrf_token %}
-            <h2 class="form-signin-heading">Sign up Here</h2>
+            <h3>Sign up Here</h3>
             {% for field in form %}
             {{ field.errors }}
             {{ field.label_tag }}<br />

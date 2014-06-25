@@ -17,5 +17,6 @@ urlpatterns = patterns('website.views',
     url(r'^addresult/$', 'addresult', name='addresult'),
     url(r'^addgoal/$', 'addgoal', name='addgoal'),
     url(r'^addpoints/$', 'addpoints', name='addpoints'),
+    url(r'^ranking/$', 'ranking', name='ranking'),
 
 )

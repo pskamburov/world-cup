@@ -1,8 +1,7 @@
-{% extends 'base.html' %}
-
-{% block content %}
-
-<script type="text/javascript" src="{{ STATIC_URL }}jquery-1.4.js"></script>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}bootstrap.css">
+        <script type="text/javascript" src="{{ STATIC_URL }}jquery-1.4.js"></script>
 {% include "rating.html" %}
 <script type="text/javascript">
    function sendBet(){
@@ -55,21 +54,43 @@
             });
    }
 </script>
+    </head>
+    <body>
+        <div class="container">
+            <h1>World Cup 2014 Brazil</h1>
+                <nav>
+                <ul class="nav nav-pills">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="{% url 'teams' %}">Teams</a></li>
+                    <li class="active"><a href="{% url 'matches' %}">Matches</a></li>
+                    <li><a href="{% url 'players' %}">Players</a></li>
+                 {% if user.is_authenticated %}
+                 <li><a href="{% url 'logout' %}">Logout</a></li>
+                 <li><a href="{% url 'my-profile' %}">My profile</a></li>
+                 <li><a href="{% url 'ranking' %}">Rank list</a></li>
+                 {% else %}
+                 <li><a href="{% url 'login' %}">Login</a></li>
+                 <li><a href="{% url 'register' %}">Register</a></li>
+                 {% endif %}
+                </ul>
+            </nav>
+            <hr>
 
+{% if user.is_authenticated %}
+    <p>Welcome, <a href="{% url 'my-profile' %}" class="alert-link">{{ user.username }}</a>. Thanks for logging in.</p>
+{% else %}
+    <p>Welcome, Guest. Please log in.</p>
+{% endif %}
 
-<div id="alert-message"> </div>
-x: {{ datata }}<br>
-now {{ now }}<br>
-{{ is_started }}
-{{ user_bet.goalscorer }}
 {% if allowed %}
     Moderator
     {% if not is_over %}
+            <br>
 <input type="number" id="home_result" value="" min="0" max="20"> :
 <input type="number" id="away_result" value="" min="0" max="20">
-<input type="submit" onclick="sendResult()" value="Add result">
+<input class="btn btn-primary btn-xs" type="submit" onclick="sendResult()" value="Add result">
         <br>
-<select id="goalscorer">
+<select id="goalscorer" style="color:orange;">
 {% for player, vote in votes_players_host.items %}
   <option value="{{ player.id }}">{{ player }}</option>
 {% endfor %}
@@ -77,63 +98,103 @@ now {{ now }}<br>
   <option value="{{ player.id }}">{{ player }}</option>
 {% endfor %}
 </select>
- <input type="submit" onclick="sendGoals()" value="Add goalscorers">
- make sure you typed the score and goalscorers!!
- <input type="submit" onclick="addPoints()" value="Give Points!!!">
+ <input class="btn btn-primary btn-xs" type="submit" onclick="sendGoals()" value="Add goalscorers">
+ <p class="text-danger">make sure you typed the score and goalscorers!!!</p>
+
+ <input class="btn btn-danger btn-sm" type="submit" onclick="addPoints()" value="Give Points!!!">
     {% endif %}
  {% else %}
     Normal User
  {% endif %}
 <br>
-BETS:
-<br>
-
-        <br>
-{% for bet,points in bets.items %}
-    <b>{{ bet.0 }}</b>
-    <b>{{ bet.0.id }}</b>
-     result: {{ bet.1 }}: {{ bet.2 }}
-     goalscorer: {{ bet.3.name }}
-     points: {{ points }}
-        <br>
+<center><div class="panel panel-primary" style="width:50%" >
+  <div class="panel-heading">
+    <h3 class="panel-title"><b>{{ match.host }}</b>
+vs
+<b>{{ match.away }}</b></h3>
+  </div>
+  <div class="panel-body">
+    <strong>{{ match.score_host }} : {{ match.score_away }}</strong>
+      <br>
+      {% for goalscorer in goalscorers %}
+    <a style="text-decoration:none;" href="/player/{{ goalscorer.id }}">
+        <h5><span class="label label-success">{{ goalscorer }}</span></h5></a>
 {% endfor %}
+  </div>
+</div></center>
 <br>
+<center><h3><span class="label label-primary">BETS</span></h3></center>
+<center>
+<table class="table table-striped table-hover " style="width:70%">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Result</th>
+      <th>Goalscorer</th>
+      <th>Points</th>
+    </tr>
+  </thead>
+  <tbody>
+
+{% for bet,points in bets.items %}
+    <tr>
+      <td>{{ bet.0 }}</td>
+      <td>{{ bet.1 }}: {{ bet.2 }}</td>
+      <td>{{ bet.3.name }}</td>
+      <td>{{ points }}</td>
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+</center>
 <br>
+<center><div class="text-danger" id="alert-message" > </div></center>
+<br>
+Is started: {{ is_started }},
 Is Over: {{ is_over }}
 
         <br>
+<strong></b><font class="text-primary">Your bet: </font></strong>
 
-<b>{{ match.host }}</b>
-vs
-<b>{{ match.away }}</b>
-
- {{ match.score_host }} : {{ match.score_away }}
-<br>
-goalscorers:
-<br>
-{% for goalscorer in goalscorers %}
-{{ goalscorer }}
-    <br>
-{% endfor %}
 {% if is_started %}
 <input type="number" id="home_score" value="{{ user_bet.score_host }}" min="0" max="20" disabled> :
 <input type="number" id="away_score" value="{{ user_bet.score_away }}" min="0" max="20" disabled>
 {% else %}
 <input type="number" id="home_score" value="{{ user_bet.score_host }}" min="0" max="20" > :
 <input type="number" id="away_score" value="{{ user_bet.score_away }}" min="0" max="20" >
-<input type="submit" onclick="sendBet()">
+<input class="btn btn-primary btn-xs" type="submit" onclick="sendBet()">
 {% endif %}
 
         <br>
-<b>{{ match.host.name }}</b> players:
-{% for player, vote in votes_players_host.items %}
+<br>
+
+<div class="row">
+      <div class="col-lg-6">
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title"><b>{{ match.host.name }}</b> players:</h3>
+  </div>
+  <div class="panel-body">
+    {% for player, vote in votes_players_host.items %}
         <br>
 {% if player == user_bet.goalscorer %}
 <input type="radio" id="radio{{player.id}}" name="radios" value="{{ player.id }}" checked>
 <label for="radio{{player.id}}">{{ player }}, vote: {{ vote|floatformat }}</label>
 {% else %}
 <input type="radio" id="radio{{player.id}}" name="radios" value="{{ player.id }}" >
-<label for="radio{{player.id}}">{{ player }}, vote: {{ vote|floatformat }}</label>
+<label for="radio{{player.id}}">
+    {{ player }},
+    {% if player.position == "GK" %}
+        Goalkeeper
+        {% elif player.position == "DF" %}
+        Defender
+        {% elif player.position == "MF" %}
+        Midfielder
+        {% elif player.position == "FW" %}
+        Forward
+      {% endif %}
+    </label>
+      rating: {{ vote|floatformat }}
 {% endif %}
  <div class="rating" id="{{player.id}}">
      {% for x in MAX_VOTE %}
@@ -146,28 +207,51 @@ goalscorers:
 <div class="userrating" id="{{player.id}}"></div>
 </div><br>
 {% endfor %}
-        <br>
-<b>{{ match.away.name }}</b> players:
-{% for player, vote in votes_players_away.items %}
+  </div>
+</div>
+</div>
+<div class="col-lg-6">
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title"><b>{{ match.away.name }}</b> players:</h3>
+  </div>
+  <div class="panel-body">
+    {% for player, vote in votes_players_away.items %}
         <br>
 {% if player == user_bet.goalscorer %}
 <input type="radio" id="radio{{player.id}}" name="radios" value="{{ player.id }}" checked>
-<label for="radio{{player.id}}">{{ player }}, vote: {{ vote|floatformat }}</label>
+<label for="radio{{player.id}}">{{ player }}</label>
 {% else %}
 <input type="radio" id="radio{{player.id}}" name="radios" value="{{ player.id }}" >
-<label for="radio{{player.id}}">{{ player }}, vote: {{ vote|floatformat }}</label>
+<label for="radio{{player.id}}">
+    {{ player }},
+      {% if player.position == "GK" %}
+        Goalkeeper
+        {% elif player.position == "DF" %}
+        Defender
+        {% elif player.position == "MF" %}
+        Midfielder
+        {% elif player.position == "FW" %}
+        Forward
+      {% endif %}
+    </label>
 {% endif %}
-<div class="rating" id="{{player.id}}">
+       rating: {{ vote|floatformat }}
+ <div class="rating" id="{{player.id}}">
      {% for x in MAX_VOTE %}
          {% if vote|floatformat:0 >= x %}
             <div class="star on rating"></div>
          {% else %}
             <div class="star"></div>
          {% endif %}
-    {% endfor %}
+     {% endfor %}
 <div class="userrating" id="{{player.id}}"></div>
 </div><br>
 {% endfor %}
-        <br>
-
-{% endblock %}
+  </div>
+</div>
+</div>
+</div>
+ </div>
+    </body>
+</html>

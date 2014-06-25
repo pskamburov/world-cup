@@ -27,12 +27,27 @@ def teams(request):
 
 
 def players(request):
+    team_players = {}
     players = Player.objects.all()
+    for player in players:
+        team_players.setdefault(player.team, []).append(player)
     return render(request, "players.html", locals())
 
+def ranking(request):
+    user_points = []
+    users = User.objects.all()
+    for user in users:
+        points_exists = Point.objects.filter(user=user)
+        if points_exists:
+            points = points_exists[0].points
+        else:
+            points = 0
+        user_points.append((points,user.username))
+        user_points.sort(reverse=True)
+    return render(request, "ranking.html", locals())
 
 def matches(request):
-    matches = Match.objects.all()
+    matches = Match.objects.order_by('-schedule')
     return render(request, "matches.html", locals())
 
 
@@ -40,6 +55,9 @@ def show_team(request, team_id):
     team = get_object_or_404(Team, id=team_id)
     return render(request, "show-team.html", locals())
 
+def show_team(request, team_id):
+    team = get_object_or_404(Team, id=team_id)
+    return render(request, "show-team.html", locals())
 
 def show_player(request, player_id):
     player = get_object_or_404(Player, id=player_id)
@@ -136,6 +154,12 @@ def login(request):
 
 
 def my_profile(request):
+    points_exists = Point.objects.filter(user=request.user)
+    if points_exists:
+        query_points = get_object_or_404(Point, user=request.user)
+        points = query_points.points
+    else:
+        points = 0
     return render(request, "my_profile.html", locals())
 
 

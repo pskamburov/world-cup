@@ -1,6 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
-myprofile
+            <nav>
+                <ul class="nav nav-pills">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="{% url 'teams' %}">Teams</a></li>
+                    <li><a href="{% url 'matches' %}">Matches</a></li>
+                    <li><a href="{% url 'players' %}">Players</a></li>
+                    <li><a href="{% url 'ranking' %}">Rank list</a></li>
+                 {% if user.is_authenticated %}
+                 <li><a href="{% url 'logout' %}">Logout</a></li>
+                 <li class="active"><a href="{% url 'my-profile' %}">My profile</a></li>
+                 {% else %}
+                 <li><a href="{% url 'login' %}">Login</a></li>
+                 <li><a href="{% url 'register' %}">Register</a></li>
+                 {% endif %}
+                </ul>
+            </nav>
+            <hr>
+
+{% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
+{% else %}
+    <p>Welcome, Guest. Please log in.</p>
+{% endif %}
+<hr>
+        <h2>Points: {{ points }}</h2>
+        Your email: {{ user.email }}
 
 
 {% endblock %}
+

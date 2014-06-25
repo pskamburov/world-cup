@@ -1,13 +1,58 @@
 {% extends 'base.html' %}
-
 {% block content %}
-All-matches:
-    <hr>
+            <nav>
+                <ul class="nav nav-pills">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="{% url 'teams' %}">Teams</a></li>
+                    <li class="active"><a href="{% url 'matches' %}">Matches</a></li>
+                    <li><a href="{% url 'players' %}">Players</a></li>
+                    <li><a href="{% url 'ranking' %}">Rank list</a></li>
+                 {% if user.is_authenticated %}
+                 <li><a href="{% url 'logout' %}">Logout</a></li>
+                 <li><a href="{% url 'my-profile' %}">My profile</a></li>
+                 {% else %}
+                 <li><a href="{% url 'login' %}">Login</a></li>
+                 <li><a href="{% url 'register' %}">Register</a></li>
+                 {% endif %}
+                </ul>
+            </nav>
+            <hr>
+
+{% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
+{% else %}
+    <p>Welcome, Guest. Please log in.</p>
+{% endif %}
+<hr>
+ <!--<div class="col-lg-6">-->
+<center>
+<table class="table table-striped table-hover " style="width:60%">
+  <thead>
+    <tr>
+      <th>Time</th>
+      <th>Date</th>
+      <th>Match</th>
+    </tr>
+  </thead>
+  <tbody>
+
     {% for match in matches %}
-    <article>
-        <h3><a href="{% url 'show-match' match.id %}">{{ match }}</a></h3>
-{# <h3>{{ player.team }}</h3> #}
-        <hr>
-    </article>
+    <tr style="cursor:pointer;" onclick="location.href='{% url 'show-match' match.id %}'">
+      <td><h4>{{ match.schedule|date:'H:i'  }}</h4></td>
+      <td><h4>{{ match.schedule|date:'m.d'  }}</h4></td>
+      <td><h4>{{ match }}</h4></td>
+
+    </tr>
+    <!--<article>-->
+        <!--{{ match.schedule|date:'m.d,  H:i'  }}-->
+
+        <!--<h3><a href="{% url 'show-match' match.id %}">{{ match }}</a></h3>-->
+<!--{# <h3>{{ player.team }}</h3> #}-->
+        <!--<hr>-->
+    <!--</article>-->
     {% endfor %}
 {% endblock %}
+  </tbody>
+</table>
+</center>
+<!--</div>-->
