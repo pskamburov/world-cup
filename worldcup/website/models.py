@@ -31,6 +31,7 @@ class Match(models.Model):
     score_away = models.PositiveSmallIntegerField(blank=True, null=True)
     schedule = models.DateTimeField()
     is_over = models.BooleanField(default=False)
+
     def __str__(self):
         if self.score_host is None or self.score_away is None:
             score_host = ""
@@ -38,7 +39,10 @@ class Match(models.Model):
         else:
             score_host = self.score_host
             score_away = self.score_away
-        representation = "{} {} : {} {}".format(self.host.name, score_host, score_away, self.away.name)
+        representation = "{} {} : {} {}".format(self.host.name,
+                                                score_host,
+                                                score_away,
+                                                self.away.name)
         return representation
 
 
@@ -49,14 +53,13 @@ class Goal(models.Model):
 
 class Voting(models.Model):
     VOTE_CHOISES = (
-            (1, "bad"),
-            (2, "medium"),
-            (3, "good"),
-            (4, "very good"),
-            (5, "excellent")
-        )
+        (1, "bad"),
+        (2, "medium"),
+        (3, "good"),
+        (4, "very good"),
+        (5, "excellent"))
     vote = models.PositiveSmallIntegerField(choices=VOTE_CHOISES,
-       default=0)
+                                            default=0)
     match = models.ForeignKey(Match, related_name="match")
     player = models.ForeignKey(Player, related_name="player")
     user = models.ForeignKey(User, related_name="user")

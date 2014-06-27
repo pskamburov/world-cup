@@ -18,11 +18,12 @@ def home(request):
     teams = Team.objects.all()
     return render(request, "home.html", locals())
 
+
 def teams(request):
     teams = Team.objects.order_by('group')
     group_teams = collections.OrderedDict()
     for team in teams:
-        group_teams.setdefault(team.group,[]).append(team)
+        group_teams.setdefault(team.group, []).append(team)
     return render(request, "teams.html", locals())
 
 
@@ -33,18 +34,6 @@ def players(request):
         team_players.setdefault(player.team, []).append(player)
     return render(request, "players.html", locals())
 
-def ranking(request):
-    user_points = []
-    users = User.objects.all()
-    for user in users:
-        points_exists = Point.objects.filter(user=user)
-        if points_exists:
-            points = points_exists[0].points
-        else:
-            points = 0
-        user_points.append((points,user.username))
-        user_points.sort(reverse=True)
-    return render(request, "ranking.html", locals())
 
 def matches(request):
     matches = Match.objects.order_by('-schedule')
@@ -55,9 +44,6 @@ def show_team(request, team_id):
     team = get_object_or_404(Team, id=team_id)
     return render(request, "show-team.html", locals())
 
-def show_team(request, team_id):
-    team = get_object_or_404(Team, id=team_id)
-    return render(request, "show-team.html", locals())
 
 def show_player(request, player_id):
     player = get_object_or_404(Player, id=player_id)
@@ -76,7 +62,7 @@ def show_match(request, match_id):
     if request.user.is_authenticated():
         allowed = is_allowed(request.user)
         user_bet_exists = PredictMatch.objects.filter(predict_match=match,
-                                               user=request.user)
+                                                      user=request.user)
         if user_bet_exists:
             user_bet = user_bet_exists[0]
         else:
@@ -84,8 +70,6 @@ def show_match(request, match_id):
     else:
         allowed = False
         user_bet = None
-
-
     all_bets = PredictMatch.objects.filter(predict_match=match)
     bets = {(bet.user, bet.score_host, bet.score_away, bet.goalscorer): 0
             for bet in all_bets}
@@ -97,9 +81,21 @@ def show_match(request, match_id):
                                      bet[3], goalscorers)
     is_started = True if match_started(match) else False
     is_over = match.is_over
-    if is_over:
-        pass
     return render(request, "show-match.html", locals())
+
+
+def ranking(request):
+    user_points = []
+    users = User.objects.all()
+    for rank_user in users:
+        points_exists = Point.objects.filter(user=rank_user)
+        if points_exists:
+            points = points_exists[0].points
+        else:
+            points = 0
+        user_points.append((points, rank_user.username))
+        user_points.sort(reverse=True)
+    return render(request, "ranking.html", locals())
 
 
 def player_ratings(players, match_id):
@@ -146,6 +142,7 @@ def match_started(match):
         return True
     return False
 
+
 def login(request):
     if request.user.is_authenticated():
         return redirect('my-profile')
@@ -153,6 +150,7 @@ def login(request):
         return views.login(request, template_name='login.html')
 
 
+@login_required(login_url='/login')
 def my_profile(request):
     points_exists = Point.objects.filter(user=request.user)
     if points_exists:
@@ -223,7 +221,8 @@ def betting(request):
                 if bet_exists:
                     bet_exists.delete()
                 bet_query.save()
-                message = "Your bet was created successfully!".format(match.schedule.date)
+                message = "Your bet was created successfully!"\
+                    .format(match.schedule.date)
         else:
             message = "No XHR"
         return HttpResponse(message)

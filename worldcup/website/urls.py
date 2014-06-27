@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 
-urlpatterns = patterns('website.views',
+urlpatterns = patterns(
+    'website.views',
     url(r'^$', 'home', name="home"),
     url(r'^matches$', 'matches', name="matches"),
     url(r'^teams$', 'teams', name="teams"),
@@ -18,5 +19,4 @@ urlpatterns = patterns('website.views',
     url(r'^addgoal/$', 'addgoal', name='addgoal'),
     url(r'^addpoints/$', 'addpoints', name='addpoints'),
     url(r'^ranking/$', 'ranking', name='ranking'),
-
 )
