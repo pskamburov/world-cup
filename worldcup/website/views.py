@@ -15,11 +15,12 @@ import collections
 
 
 def home(request):
-    teams = Team.objects.all()
+    '''View for index page'''
     return render(request, "home.html", locals())
 
 
 def teams(request):
+    '''View for all teams'''
     teams = Team.objects.order_by('group')
     group_teams = collections.OrderedDict()
     for team in teams:
@@ -28,6 +29,7 @@ def teams(request):
 
 
 def players(request):
+    '''View for all players'''
     team_players = {}
     players = Player.objects.all()
     for player in players:
@@ -36,21 +38,33 @@ def players(request):
 
 
 def matches(request):
+    '''View for all matches'''
     matches = Match.objects.order_by('-schedule')
     return render(request, "matches.html", locals())
 
 
 def show_team(request, team_id):
+    '''View for specified team'''
     team = get_object_or_404(Team, id=team_id)
     return render(request, "show-team.html", locals())
 
 
 def show_player(request, player_id):
+    '''View for specified player'''
     player = get_object_or_404(Player, id=player_id)
     return render(request, "show-player.html", locals())
 
 
 def show_match(request, match_id):
+    '''View a specified match
+
+    This view is for a match stats(goals, score),
+    all bets, and player ratings
+
+    Keyword arguments:
+    request -- request from client
+    match_id -- id of the match
+    '''
     match = get_object_or_404(Match, id=match_id)
     MAX_VOTE = [str(x) for x in range(1, 6)]
     votes_players_host = {}
@@ -85,6 +99,7 @@ def show_match(request, match_id):
 
 
 def ranking(request):
+    '''View for all users ordered by points'''
     user_points = []
     users = User.objects.all()
     for rank_user in users:
@@ -99,6 +114,7 @@ def ranking(request):
 
 
 def player_ratings(players, match_id):
+    '''Method calculating ratings for players in a specified match'''
     player_votes = {}
     for player in players:
         all_votes = Voting.objects.filter(match__id=match_id, player=player)
@@ -109,6 +125,16 @@ def player_ratings(players, match_id):
 
 
 def calculate_points(bet_result, result, bet_goalscorer, goalscorers):
+    '''Method to calculate user points for a match
+
+    This method calculates the points for a created bet
+
+    Keyword arguments:
+    bet_result -- tuple of predicted result
+    result -- tuple of actual result
+    bet_goalscorer -- predicted goalscorer
+    goalscorers -- actual goalscorers
+    '''
     points = 0
     if result != (None, None):
         bet_difference = bet_result[0] - bet_result[1]
@@ -127,6 +153,7 @@ def calculate_points(bet_result, result, bet_goalscorer, goalscorers):
 
 
 def is_allowed(user):
+    '''Method to check if user is moderator'''
     is_super = user.is_superuser
     allowed_group = set(['admin', 'moderator'])
     groups = [x.name for x in user.groups.all()]
@@ -136,6 +163,7 @@ def is_allowed(user):
 
 
 def match_started(match):
+    '''Method to check if a match is already started'''
     match_start = match.schedule.replace(tzinfo=None)
     now = datetime.now()
     if now > match_start:
@@ -144,6 +172,7 @@ def match_started(match):
 
 
 def login(request):
+    '''View to handle login'''
     if request.user.is_authenticated():
         return redirect('my-profile')
     else:
@@ -152,6 +181,7 @@ def login(request):
 
 @login_required(login_url='/login')
 def my_profile(request):
+    '''View for a user_profile'''
     points_exists = Point.objects.filter(user=request.user)
     if points_exists:
         query_points = get_object_or_404(Point, user=request.user)
@@ -162,11 +192,13 @@ def my_profile(request):
 
 
 def logout(request):
+    '''View to handle logout'''
     views.logout(request)
     return redirect('login')
 
 
 def register(request):
+    '''View to handle registration'''
     data = request.POST if request.POST else None
     form = RegistrationForm(data)
     match_flag = True
@@ -194,6 +226,14 @@ def register(request):
 
 @csrf_exempt
 def betting(request):
+    '''Method for creating bets for a specified match
+
+    User can make a bet, which includes to predict a result
+    and a goalscorer
+
+    Keyword arguments:
+    request -- request from client
+    '''
     if request.user.is_authenticated():
         if request.is_ajax() and request.method == 'POST':
             user = request.user
@@ -232,6 +272,13 @@ def betting(request):
 
 @csrf_exempt
 def addresult(request):
+    '''Method to update actual result for a specified match
+
+    Moderators and admins can update the actual result
+
+    Keyword arguments:
+    request -- request from specified users
+    '''
     if request.user.is_authenticated() and\
             is_allowed(request.user):
         if request.is_ajax() and request.method == 'POST':
@@ -258,6 +305,13 @@ def addresult(request):
 
 @csrf_exempt
 def addgoal(request):
+    '''Method to update actual goalscorers for a specified match
+
+    Moderators and admins can update the actual goalscorers
+
+    Keyword arguments:
+    request -- request from specified users
+    '''
     if request.user.is_authenticated() and\
             is_allowed(request.user):
         if request.is_ajax() and request.method == 'POST':
@@ -283,6 +337,14 @@ def addgoal(request):
 
 @csrf_exempt
 def addpoints(request):
+    '''Method to update the points from the bets for a specified match
+
+    Moderators and admins can gave the points to all users,
+    who made a bet for the specified match after the match is over
+
+    Keyword arguments:
+    request -- request from specified users
+    '''
     if request.user.is_authenticated() and\
             is_allowed(request.user):
         if request.is_ajax() and request.method == 'POST':
@@ -325,6 +387,13 @@ def addpoints(request):
 
 @csrf_exempt
 def rate(request):
+    '''Method to rate players of both teams for a specified match
+
+    Users can vote(1-5) for every player once
+
+    Keyword arguments:
+    request -- request from specified users
+    '''
     if request.user.is_authenticated():
         if request.is_ajax():
             if request.method == 'GET':
