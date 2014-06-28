@@ -11,7 +11,7 @@ The website provides information about:
 - Stats of the matches
 
 Anyone can register.
-The users are able to <b>rate</b> the players during and after the game and make <b>comments</b>.
+The users are able to <b>rate</b> the players of both teams in a specified match.
 The app includes a <b>bet system</b> for users. They can predict the score and a goalscorer.
 Based on this all users recieve points from their bets.
 <b>Moderators</b> are able to update the actual score and goalscorers.
