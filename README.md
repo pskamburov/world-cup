@@ -1,8 +1,8 @@
 world-cup
 =========
 
+Python project (Django web framework)
 Website of the 2014 World Cup Brazil
-Python project(Django web framework)
 ------------------------------------
 The website provides information about:
 - Today's matches;
@@ -16,8 +16,8 @@ The users are able to <b>rate</b> the players of both teams in a specified match
 The app includes a <b>bet system</b> for users. They can predict the score and a goalscorer.
 Based on this all users recieve points from their bets.
 <b>Moderators</b> are able to update the actual score and goalscorers.
-<b>(Done)</b>Goals for milestone 2
+Goals for milestone 2:
 ---------------------
-- Design and Create models for player, team, game, vote, etc
-- Login system
-- tests(excluding vote system)
+- <b>(Done)</b>Design and Create models for player, team, game, vote, etc
+- <b>(Done)</b>Login system
+- <b>(Done)</b>tests(excluding vote system)
